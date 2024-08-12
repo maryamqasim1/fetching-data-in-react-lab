@@ -1,18 +1,23 @@
+import { useState, useEffect } from "react";
 import * as starshipService from "./services/starshipService";
-import { useState } from "react";
 import StarshipList from "./components/StarshipList";
 
 const App = () => {
-  const fetchData = async () => {
-    const data = await starshipService.show();
-    const newData = {
-      name: data.results.name,
-      starship_class: data.results.starship_class,
-      manufacturer: data.results.manufacturer,
-      model: data.results.model,
+  const [Starship, setStarship] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await starshipService.show();
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        setStarship(data.results);
+      } catch (error) {
+        console.log(error);
+      }
     };
-    setStarship(newData);
-  };
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -21,11 +26,11 @@ const App = () => {
       <div>
         <label htmlFor="">Search Term: </label>
         <input type="text" name="" id="" />
-        <button onClick={fetchData}>Search</button>
+        <button>Search</button>
       </div>
       <h2>Starships</h2>
-      <p>Number of results: {starship.length}</p>
-      <StarshipList starship={starship} />
+      <p>Number of results: {Starship.length}</p>
+      <StarshipList Starship={Starship} />
     </>
   );
 };
