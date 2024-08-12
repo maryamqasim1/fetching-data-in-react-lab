@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import * as starshipService from "./services/starshipService";
 import StarshipList from "./components/StarshipList";
+// import StarshipSearch from "./components/StarshipSearch";
 
 const App = () => {
   const [Starship, setStarship] = useState([]);

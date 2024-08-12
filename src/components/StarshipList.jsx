@@ -1,12 +1,20 @@
 const StarshipList = (props) => {
   const starships = props.Starship.map((starship) => {
-    return <li key={starship.name}>{starship.name}</li>;
+    return (
+      <>
+        <li key={starship.name}>
+          <p>{starship.name}</p>
+          <p>Class: {starship.starship_class}</p>
+          <p>Manufacturer: {starship.manufacturer}</p>
+          <p>Model: {starship.model}</p>
+        </li>
+      </>
+    );
   });
   return (
-    <div>
-      {/* <h1>hi</h1> */}
+    <section>
       <ul>{starships}</ul>
-    </div>
+    </section>
   );
 };
 
